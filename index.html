@@ -140,11 +140,11 @@
                   <span style="margin: 0 10px; color: #fff;">ó</span>
                   <hr style="border-top: 1px solid #fff; display: inline-block; width: 40%;" />
               </div>
-               <!-- Botón para iniciar sesión con Facebook -->
-              <div class="text-center mt-3">
-                 <button class="btn" id="facebookLogin" style="background-color: #007bff; color: white;">Iniciar sesión con Facebook</button>
-              </div>
             </form>
+             <!-- Botón para iniciar sesión con Facebook -->
+              <div class="text-center mt-3">
+                 <button class="btn" id="facebookLogin" style="background-color: #007bff; color: white;" onclick="onLogin();">Iniciar sesión con Facebook</button>
+              </div>
           </div>
         </div>
       </div>
@@ -188,7 +188,7 @@
               </div>
                <!-- Botón para iniciar sesión con Facebook -->
               <div class="text-center mt-3">
-                 <button class="btn" id="facebookLogin" style="background-color: #007bff; color: white;">Iniciar sesión con Facebook</button>
+                 <button class="btn" id="facebookLogin" style="background-color: #007bff; color: white;">Registrarte con Facebook</button>
               </div>
             </form>
           </div>
@@ -197,5 +197,32 @@
     </div>
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '929433142347762',
+          xfbml      : true,
+          version    : 'v20.0'
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+      function onLogin(){
+        FB.login((response) => {
+          if(response.authResponse){
+            FB.api('/me',(response) => {
+              console.log(response);
+            })
+          }
+        })
+      }
+    </script>
   </body>
 </html>
